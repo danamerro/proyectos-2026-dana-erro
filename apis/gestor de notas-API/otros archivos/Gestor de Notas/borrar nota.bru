@@ -1,0 +1,15 @@
+meta {
+  name: borrar nota
+  type: http
+  seq: 5
+}
+
+delete {
+  url: http://localhost:8080/api/notes/eliminar/1
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}
