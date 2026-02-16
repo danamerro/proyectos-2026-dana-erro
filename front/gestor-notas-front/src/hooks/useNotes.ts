@@ -5,33 +5,59 @@ import * as noteService from "../services/noteService"
 export function useNotes(){
     const [notes, setNotes] = useState<Note[]>([])
     const [editingNote, setEditingNote] = useState<Note | null>(null)
-
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState<string | null>(null)
       useEffect(() => {
-    const loadNotes = async () => {
-      const data = await noteService.getNotes()
-      setNotes(data)
-    }
-    loadNotes()
-  }, [])
+        const loadNotes = async () => {
+            setLoading(true)
+        try{
+            //await new Promise(resolve => setTimeout(resolve,5000))
+            const data = await noteService.getNotes()
+            setNotes(data)
+        }catch(e){
+            setError("Error cargando notas")
+        }finally{
+            setLoading(false)
+        }  
+        
+        }
+        loadNotes()
+    }, [])
 
-  const saveNote = async (noteData: Omit<Note,"id">) => {
-    if(editingNote){
-        const updated = await noteService.updateNote(editingNote.id,noteData)
-        setNotes(notes.map(n => n.id === editingNote.id ? updated : n))
+    const saveNote = async (noteData: Omit<Note, "id">) => {
+    try {
+        setLoading(true)
 
-        setEditingNote(null)
-    }else{
+        //await new Promise(resolve => setTimeout(resolve, 2000)) 
+
         const created = await noteService.createNote(noteData)
-        setNotes([...notes, created])
+
+        setNotes(prev => [...prev, created])
+
+    } finally {
+        setLoading(false)
     }
-  }
+    }
+
+
 
   const deleteNote = async (id: number) => {
-    await noteService.deleteNote(id)
-    setNotes(notes.filter(n => n.id !== id))
+    
+    try{
+        setLoading(true)
+        //await new Promise(resolve => setTimeout(resolve, 2000)) 
+        await noteService.deleteNote(id)
+
+        setNotes(prev => prev.filter(n => n.id !== id))
+    }catch(e){
+        setError("Error eliminando nota")
+    }finally{
+        setLoading(false)
+    }
+    
   }
 
   return {
-    notes, editingNote,setEditingNote,saveNote,deleteNote
+    notes, editingNote,setEditingNote,saveNote,deleteNote,loading,error
   }
 }

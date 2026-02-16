@@ -7,7 +7,7 @@ function App() {
   /*estos son equivalentes a crear una lista vacia, solo que se renderiza solo*/
   //const [notes, setNotes] = useState<Note[]>([])
   //const [editingNote, setEditingNote] = useState<Note | null>(null)
-  const{notes,editingNote,setEditingNote,saveNote,deleteNote} = useNotes()
+  const{notes,editingNote,setEditingNote,saveNote,deleteNote,loading,error} = useNotes()
   /* es como usar @Postconstruct, hace un fetch del get (me trae mis notas) */
   /*useEffect(() => {
     fetch("http://localhost:8080/api/notes/get")
@@ -54,7 +54,8 @@ function App() {
 
               <div style={{width:"400px"}}>
                 <h1>Gestor de notas</h1>
-                
+                {loading && <p>Cargando...</p>}
+                {error && <p style={{color: "red"}}>{error}</p>}
                 <NoteForm
                   onSave={saveNote}
                   editingNote={editingNote}
