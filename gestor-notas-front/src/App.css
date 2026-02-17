@@ -1,0 +1,74 @@
+/*fondo general*/
+body{
+  margin: 0;
+  font-family: Arial, Arial, Helvetica, sans-serif;
+  background: linear-gradient(135deg,#1f2937,#111827);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/*contenedor principal*/
+.container{
+  background-color: #1f2937;
+  padding: 30px;
+  border-radius: 12px;
+  width: 400px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  color: white;
+}
+
+/*Titulo*/
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Inputs */
+input,
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  border: none;
+  outline: none;
+}
+
+/* Botones base */
+button {
+  padding: 8px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+/* Botón principal */
+.primary {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.primary:hover {
+  background-color: #2563eb;
+}
+
+/* Botón eliminar */
+.danger {
+  background-color: #ef4444;
+  color: white;
+}
+
+.danger:hover {
+  background-color: #dc2626;
+}
+
+/* Card nota */
+.note-card {
+  background-color: #111827;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
