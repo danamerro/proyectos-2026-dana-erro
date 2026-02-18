@@ -1,12 +1,20 @@
+/**Responsabilidades de NoteForm:
+ * Manejar estado interno del formulario (title y content)
+ * Mostrar datos cuando estamos editando
+ * Avisarle a App.tsx cuando se guarda
+ * Resetear el formulario después de guardar
+ */
+
 import {useState, useEffect} from "react"
 import type {Note} from "../types/Note"
 
 interface NoteFormProps{
     onSave: (note: Omit<Note, "id">,id?: number) => void
     editingNote: Note | null
+    saving: boolean
 }
 
-export default function NoteForm({ onSave, editingNote}: NoteFormProps){
+export default function NoteForm({ onSave, editingNote,saving}: NoteFormProps){
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
 
@@ -15,40 +23,47 @@ export default function NoteForm({ onSave, editingNote}: NoteFormProps){
         if(editingNote){
             setTitle(editingNote.title)
             setContent(editingNote.content)
+        }else{
+            setTitle("")
+            setContent("")
         }
     },[editingNote])
 
     const handleSubmit = () => {
-        if(!title.trim() || !content.trim()) return 
-        onSave({title, content}, editingNote?.id)
+        if(!title.trim() || !content.trim()) return
+            if(editingNote){
+                onSave({title, content}, editingNote?.id)
+            }else{
+                onSave({title,content})
+            } 
+        
         setTitle("")
         setContent("")
     }
 
     return (
-        <>
-        <h2>{editingNote ? "Editar nota" : "Crear nota"}</h2>
-        
-        <input
-            type="text"
-            placeholder="Titulo"
-            value={title}
-            onChange={e => setTitle(e.target.value)}
-            style={{width: "100%", marginBottom: "10px"}}
-        />
+    <div>
+      <h2>{editingNote ? "Editar nota" : "Crear nota"}</h2>
 
-        <textarea
-            placeholder="Contenido"
-            value={content}
-            onChange={e => setContent(e.target.value)}
-            style={{width: "100%", marginBottom:"10px"}}
-        />
+      <input
+        type="text"
+        placeholder="Título"
+        value={title}
+        onChange={e => setTitle(e.target.value)}
+      />
 
-        <button onClick={handleSubmit}>
-            {editingNote ? "Actualizar" : "Crear"}
-        </button>
+      <textarea
+        placeholder="Contenido"
+        value={content}
+        onChange={e => setContent(e.target.value)}
+      />
 
-        <hr/>
-       </> 
-    )      
+      <button className="primary" onClick={handleSubmit}>
+        {editingNote ? "Actualizar" : "Crear"}
+      </button>
+
+      <hr />
+    </div>
+  )
+      
 }

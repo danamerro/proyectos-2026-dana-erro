@@ -1,42 +1,104 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* variables globales*/
+:root {
+  --bg-color: #f5f5f5;
+  --container-bg: #ffffff;
+  --text-color: #111111;
+  --subtext-color: #555555;
+  --border-color: #eeeeee;
+  --button-bg: #111111;
+  --button-text: #ffffff;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/*esto sobreescribe las variables si el body tiene data-theme="dark" */
+[data-theme="dark"] {
+  --bg-color: #111111;
+  --container-bg: #1c1c1c;
+  --text-color: #ffffff;
+  --subtext-color: #bbbbbb;
+  --border-color: #333333;
+  --button-bg: #ffffff;
+  --button-text: #111111;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* para que respete el tema de blanco y negro */
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: var(--text-color); /* <= aca nos aseguramos que herede correctamente segun el tema que elija despues */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color); 
+  display: flex;
+  justify-content: center;
+  padding-top: 60px;
+  transition: background-color 0.3s ease;
 }
 
-.card {
-  padding: 2em;
+.container {
+  width: 600px;
+  background: var(--container-bg);
+  padding: 40px;
+  border-radius: 8px;
+  transition: background 0.3s ease;
 }
 
-.read-the-docs {
-  color: #888;
+h1, h2, h3 {
+  color: var(--text-color);
 }
+
+p {
+  color: var(--subtext-color);
+}
+
+input,
+textarea {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--border-color);
+  padding: 8px 0;
+  margin-bottom: 20px;
+  font-size: 14px;
+  background: transparent;
+  outline: none;
+  color: var(--text-color);
+}
+
+.primary {
+  background: var(--button-bg);
+  color: var(--button-text);
+  border: none;
+  padding: 6px 14px;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.note-card {
+  padding: 15px 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.note-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.note-actions button {
+  background: none;
+  border: none;
+  font-size: 13px;
+  cursor: pointer;
+  color: var(--subtext-color);
+}
+
+.note-actions button:hover {
+  color: var(--text-color);
+}
+
