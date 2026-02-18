@@ -6,27 +6,49 @@ import"./App.css"
 
 function App() {
   /*estos son equivalentes a crear una lista vacia, solo que se renderiza solo*/
-  const{notes,editingNote,setEditingNote,saveNote,deleteNote,loading,error} = useNotes()
+  const{
+    notes,
+    editingNote,
+    setEditingNote,
+    saveNote,
+    deleteNote,
+    loading,
+    saving,
+    error,
+    message} = useNotes()
  
       return (
-  <div className="container">
-    <h1>Gestor de Notas</h1>
+      <div className="container">
 
-    {loading && <p>Cargando...</p>}
-    {error && <p style={{ color: "red" }}>{error}</p>}
+        <h1>Gestor de Notas</h1>
 
-    <NoteForm
-      onSave={saveNote}
-      editingNote={editingNote}
-    />
+        {loading && <p>Cargando...</p>}
 
-    <NoteList
-      notes={notes}
-      onDelete={deleteNote}
-      onEdit={setEditingNote}
-    />
-  </div>
-)
+        {error && (
+          <p style={{ color: "red" }}>
+            {error}
+          </p>
+        )}
+
+        {message && (
+          <p style={{ color: "#22c55e" }}>
+            {message}
+          </p>
+        )}
+
+        <NoteForm
+          onSave={saveNote}
+          editingNote={editingNote}
+          saving={saving}
+        />
+
+        <NoteList
+          notes={notes}
+          onDelete={deleteNote}
+          onEdit={setEditingNote}
+        />
+      </div>
+    )
 
   }
 

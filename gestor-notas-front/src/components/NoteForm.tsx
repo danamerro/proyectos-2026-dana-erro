@@ -11,9 +11,10 @@ import type {Note} from "../types/Note"
 interface NoteFormProps{
     onSave: (note: Omit<Note, "id">,id?: number) => void
     editingNote: Note | null
+    saving: boolean
 }
 
-export default function NoteForm({ onSave, editingNote}: NoteFormProps){
+export default function NoteForm({ onSave, editingNote,saving}: NoteFormProps){
     const [title, setTitle] = useState("")
     const [content, setContent] = useState("")
 
