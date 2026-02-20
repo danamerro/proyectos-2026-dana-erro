@@ -1,4 +1,5 @@
 /*Components*/
+import {useState, useEffect} from "react"
 import NoteForm from "./components/NoteForm"
 import NoteList from "./components/NoteList"
 import { useNotes } from "./hooks/useNotes"
@@ -6,6 +7,22 @@ import"./App.css"
 
 function App() {
   /*estos son equivalentes a crear una lista vacia, solo que se renderiza solo*/
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+  const savedTheme = localStorage.getItem("theme")
+
+    if (savedTheme === "dark" || savedTheme === "light") {
+      return savedTheme
+    }
+
+    return "light"
+  })
+
+  useEffect(()=> { /*aca cambia el body por dark o light */
+    document.body.setAttribute("data-theme",theme)
+
+    localStorage.setItem("theme", theme)
+  },[theme])
+
   const{
     notes,
     editingNote,
@@ -19,6 +36,15 @@ function App() {
  
       return (
       <div className="container">
+
+        <button
+            className="theme-toggle"
+            onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+            >
+            {theme === "light" ? "☀ Light mode" : "🌙 Dark mode"}
+        </button>
+
+
 
         <h1>Gestor de Notas</h1>
 
