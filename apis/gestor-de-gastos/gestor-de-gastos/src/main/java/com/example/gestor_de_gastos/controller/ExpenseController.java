@@ -29,4 +29,16 @@ public class ExpenseController {
     public ResponseEntity<Expense> createExpense(@Valid @RequestBody Expense expense){
         return new ResponseEntity<>(this.expenseService.postExpense(expense), HttpStatus.CREATED);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Expense> getExpenseById(@PathVariable Long id){
+        return new ResponseEntity<>(this.expenseService.getExpenseById(id),HttpStatus.ACCEPTED);
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<Expense> putExpense(@PathVariable Long id,@RequestBody Expense updateExpense){
+        return ResponseEntity.ok(
+            this.expenseService.updateExpense(id, updateExpense)
+        );
+    }
 }
