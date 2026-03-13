@@ -31,13 +31,20 @@ public class ExpenseServiceImpl implements ExpenseService {
 
     @Override
     public Expense getExpenseById(Long id){
-        return this.expenseRepository.findById(id).orElseThrow(()-> new ExpenseNotFoundException("Expense not found with ID"+id));
+        if(!expenseRepository.existsById(id)){
+            throw new ExpenseNotFoundException("Expense not found with ID " + id);
+        }
+
+        return this.expenseRepository.findById(id).get();
     }
 
     @Override
-    public Expense updateExpense(Long id,Expense updateExpense){
-        Expense existingExpense = expenseRepository.findById(id)
-                .orElseThrow(() -> new ExpenseNotFoundException("Expense not found with ID"+id));
+    public Expense updateExpense(Long id, Expense updateExpense) {
+        if(!this.expenseRepository.existsById(id)){
+            throw new ExpenseNotFoundException("Expense not found with ID"+id);
+        }
+        Expense existingExpense = expenseRepository.findById(id).get();
+
         if(updateExpense.getAmount()!=null){
             existingExpense.setAmount(updateExpense.getAmount());
         }if(updateExpense.getCategory()!=null){
@@ -48,5 +55,20 @@ public class ExpenseServiceImpl implements ExpenseService {
             existingExpense.setDate(updateExpense.getDate());
         }
         return this.expenseRepository.save(existingExpense);
+    }
+
+
+    @Override
+    public void deleteExpenseById(Long id) {
+        if (!this.expenseRepository.existsById(id)) {
+            throw new ExpenseNotFoundException("Expense not found with ID " + id);
+        }
+        this.expenseRepository.deleteById(id);
+    }
+
+    @Override
+    public void deleteAllExpenses(){
+        this.expenseRepository.findAll();
+        this.expenseRepository.deleteAll();
     }
 }

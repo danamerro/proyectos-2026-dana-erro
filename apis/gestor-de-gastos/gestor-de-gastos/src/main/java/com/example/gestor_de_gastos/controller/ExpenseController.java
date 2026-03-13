@@ -41,4 +41,16 @@ public class ExpenseController {
             this.expenseService.updateExpense(id, updateExpense)
         );
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Expense> deleteExpense(@PathVariable Long id){
+        this.expenseService.deleteExpenseById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @DeleteMapping("")
+    public ResponseEntity<Expense> deleteAllExpenses(){
+        this.expenseService.deleteAllExpenses();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 }
