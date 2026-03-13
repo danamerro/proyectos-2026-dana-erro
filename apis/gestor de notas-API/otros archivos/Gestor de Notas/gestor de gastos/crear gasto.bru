@@ -1,0 +1,25 @@
+meta {
+  name: crear gasto
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:8080/api/expenses
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "amount": 25.45, 
+    "category":"FOOD",
+    "description":"Cita con mi pareja",
+    "date": "27/02/2026",
+    "paymentMethod": "DEBIT_CARD"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

@@ -1,0 +1,22 @@
+meta {
+  name: traer una nota
+  type: http
+  seq: 2
+}
+
+put {
+  url: http://localhost:8080/api/notes/put/1
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "content": "fideos,salsa,carne,pollo",
+    "title": "lista de comida"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

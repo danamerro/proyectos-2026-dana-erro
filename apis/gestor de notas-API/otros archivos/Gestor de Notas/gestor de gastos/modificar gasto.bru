@@ -1,0 +1,21 @@
+meta {
+  name: modificar gasto
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:8080/api/expenses/1
+  body: json
+  auth: inherit
+}
+
+body:json {
+  { 
+    "category":"healt"
+  }
+}
+
+settings {
+  encodeUrl: true
+}

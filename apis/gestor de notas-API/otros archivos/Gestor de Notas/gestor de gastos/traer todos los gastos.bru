@@ -1,0 +1,15 @@
+meta {
+  name: traer todos los gastos
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:8080/api/expenses
+  body: none
+  auth: inherit
+}
+
+settings {
+  encodeUrl: true
+}

@@ -1,6 +1,6 @@
 {
   "version": "1",
-  "name": "Gestor de Notas",
+  "name": "proyectos propios",
   "type": "collection",
   "ignore": [
     "node_modules",
