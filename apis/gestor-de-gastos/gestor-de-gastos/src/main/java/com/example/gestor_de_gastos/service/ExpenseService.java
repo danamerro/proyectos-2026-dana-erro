@@ -1,6 +1,7 @@
 package com.example.gestor_de_gastos.service;
 
 import com.example.gestor_de_gastos.entity.Expense;
+import com.example.gestor_de_gastos.entity.enums.CategoryEnum;
 
 import java.util.List;
 
@@ -11,4 +12,5 @@ public interface ExpenseService {
     public Expense updateExpense(Long id,Expense updateExpense);
     public void deleteExpenseById(Long id);
     public void deleteAllExpenses();
+    public List<Expense> getExpensesByCategory(CategoryEnum category);
 }

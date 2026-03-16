@@ -1,6 +1,7 @@
 package com.example.gestor_de_gastos.controller;
 
 import com.example.gestor_de_gastos.entity.Expense;
+import com.example.gestor_de_gastos.entity.enums.CategoryEnum;
 import com.example.gestor_de_gastos.service.ExpenseService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,5 +53,18 @@ public class ExpenseController {
     public ResponseEntity<Expense> deleteAllExpenses(){
         this.expenseService.deleteAllExpenses();
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    //@GetMapping("/category/{category}")
+    /*public ResponseEntity<List<Expense>> getExpensesByCategory(@PathVariable CategoryEnum category){
+        List<Expense> expenseCategory = this.expenseService.getExpensesByCategory(category);
+        return new ResponseEntity<>(expenseCategory,HttpStatus.OK);
+    }*/
+    @GetMapping("/category/{category}")
+    public ResponseEntity<List<Expense>> getExpensesByCategory(@PathVariable String category) {
+
+        CategoryEnum categoryEnum = CategoryEnum.valueOf(category.toUpperCase());
+
+        return ResponseEntity.ok(expenseService.getExpensesByCategory(categoryEnum));
     }
 }

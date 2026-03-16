@@ -1,6 +1,7 @@
 package com.example.gestor_de_gastos.service.impl;
 
 import com.example.gestor_de_gastos.entity.Expense;
+import com.example.gestor_de_gastos.entity.enums.CategoryEnum;
 import com.example.gestor_de_gastos.exception.ExpenseNotFoundException;
 import com.example.gestor_de_gastos.repository.ExpenseRepository;
 import com.example.gestor_de_gastos.service.ExpenseService;
@@ -70,5 +71,10 @@ public class ExpenseServiceImpl implements ExpenseService {
     public void deleteAllExpenses(){
         this.expenseRepository.findAll();
         this.expenseRepository.deleteAll();
+    }
+
+    @Override
+    public List<Expense> getExpensesByCategory(CategoryEnum category) {
+        return expenseRepository.findByCategory(category);
     }
 }
